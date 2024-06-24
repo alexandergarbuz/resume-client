@@ -1,0 +1,43 @@
+.carousel-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .carousel {
+    position: relative;
+    width: 100%;
+    overflow: hiden;
+  }
+  
+  .carousel-slide {
+    width: 100%;
+    height: auto;
+    padding: 50px;
+    border: 0px solid;
+  }
+  
+  .arrow {
+    position: absolute;
+    top: 150px;
+    transform: translateY(0%);
+    color: #000000;
+    font-size: medium;
+    cursor: pointer;
+    border: 0px solid;
+  }
+  
+  .left {
+    left: 5px;
+  }
+  
+  .right {
+    right: 5px;
+  }
+
+.avatar-image {
+  max-width: 100px; /* Limit maximum width to 150 pixels */
+  max-height: 100px; /* Limit maximum height to 150 pixels */
+  width: auto; /* Allow the width to adjust proportionally */
+  height: auto; /* Allow the height to adjust proportionally */
+}
+  
