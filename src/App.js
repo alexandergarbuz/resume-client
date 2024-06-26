@@ -17,7 +17,7 @@ const slides = [
 
 function App() {
   return (
-    <div>
+    <div className='w3-content'>
       <ContactInformation />
       <SkillList apiUrl="https://resume-service.aws.garbuz.com/api/resume/skills/1" />
       <CarouselComponent title="Recommendations" slides={slides} />

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Avatar from './component/Avatar';
 import './Carousel.css';
 
 export class Slide {
@@ -19,6 +20,11 @@ export function CarouselComponent  (props)  {
   const title = props.title;
     
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [name, setName] = useState(slides[currentIndex].name);
+
+  useEffect(() => {
+    setName(slides[currentIndex].name);
+  }, [currentIndex, slides]);
 
   function nextSlide () {
     setCurrentIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1));
@@ -31,22 +37,23 @@ export function CarouselComponent  (props)  {
 
 
   return (
-    <div id="recommendations" className='w3-content'>
+    <div id="recommendations">
       <h2>{title}</h2>
       <div className="carousel">
-            <div className="w3-row">
+            <div>
                 <div className="w3-col w3-center w3-padding-large">
-                    <img src={slides[currentIndex].imgSrc}  className="w3-circle avatar-image" alt= {'Photo of ' + slides[currentIndex].name}/>
-                    <p className="w3-text-dark-grey">
-                        <a href={slides[currentIndex].link} target='_blank'><strong>{slides[currentIndex].name}</strong></a><br/>
-                        <em>{slides[currentIndex].title} @ {slides[currentIndex].company}</em><br/>
-                        {slides[currentIndex].relationship}<br/>
-                        {slides[currentIndex].date}<br/>
-                    </p>
+
+                  <Avatar id={currentIndex} 
+                    src={slides[currentIndex].imgSrc} 
+                    size="100px"
+                    header1={name}
+                    header2={slides[currentIndex].title + ' @ ' + slides[currentIndex].company}
+                    header3={slides[currentIndex].relationship}
+                    />
                     <p className="w3-justify">{slides[currentIndex].text}</p>
                 </div>
             </div>
-            <div className="w3-row">
+            <div>
                 <div className="arrow left" title='Previous' onClick={prevSlide}>&#10094;&#10094;&#10094;</div>
                 <div className="arrow right" title='Next' onClick={nextSlide}>&#10095;&#10095;&#10095;</div>
             </div>
