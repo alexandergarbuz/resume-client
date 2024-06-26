@@ -46,6 +46,7 @@ export function CarouselComponent  (props)  {
                   <Avatar id={currentIndex} 
                     src={slides[currentIndex].imgSrc} 
                     size="100px"
+                    link={slides[currentIndex].link}
                     header1={name}
                     header2={slides[currentIndex].title + ' @ ' + slides[currentIndex].company}
                     header3={slides[currentIndex].relationship}
