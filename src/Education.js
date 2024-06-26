@@ -10,7 +10,7 @@ function Education () {
 
     return (
 
-        <div id="education" className='w3-content'>
+        <div id="education">
 
         <h2>Education
             &nbsp;

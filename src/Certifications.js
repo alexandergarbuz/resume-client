@@ -7,7 +7,7 @@ function Certifications() {
     }
 
     return (
-    <div id="certifications" className="w3-content">
+    <div id="certifications">
             <h2>Certifications
             &nbsp;
             <a 
