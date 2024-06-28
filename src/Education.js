@@ -1,39 +1,79 @@
-import React, { useState } from "react";
+import Alert from 'react-bootstrap/Alert';
+import React, { useState, useEffect } from "react";
+import Accordion from 'react-bootstrap/Accordion';
+import Spinner from 'react-bootstrap/Spinner';
 
-function Education () {
+function parseDate(datToParse) {
+    return (datToParse.getMonth() + 1) + '/' + datToParse.getFullYear();
+}
 
-    const[isVisible, setVisible] = useState(false);
+function Education (props) {
+    const[data, setData] = useState([]);
+    const[isLoading, setLoading] = useState(true);
+    const[error, setError] = useState(null);
 
-    function toggleVisibility() {
-        setVisible(!isVisible);
+
+    useEffect(() => {
+        fetch(props.apiUrl)
+            .then(response => {
+                if(! response.ok) {
+                    throw new Error("Cannot load data");
+                }
+                return response.json();
+            })
+            .then(data => {
+                const loadedSchools = data.educations.map(school => {
+                const startDate = new Date(school.startDate);
+                const endDate = new Date(school.endDate);
+                const formattedStartDate = parseDate(startDate);
+                const formattedEndDate = parseDate(endDate);
+                return (
+                    <Accordion.Item eventKey={school.id.toString()} key={school.id}>
+                        <Accordion.Header>{school.name} ({formattedStartDate} - {formattedEndDate})</Accordion.Header>
+                        <Accordion.Body>
+                            <p><strong>{school.degree}</strong></p>
+                            <p>{school.comments}</p>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                );
+            });
+            setData(loadedSchools);
+            setLoading(false);
+        })
+        .catch(error =>{
+            console.log('Error fetching data:', error);
+            setLoading(false);
+            setError(error);
+        });
+
+    }, [props.apiUrl]
+    )
+    if (isLoading) {
+        return (
+            <div id="education">
+                <h2>Education</h2>
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        );
+    }
+    if(error != null) {
+        return (
+            <Alert variant="danger" onClose={() => setError(null)} dismissible>
+                <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                <p>Something went wrong with your request: {error.message}</p>
+          </Alert>
+        );
     }
 
     return (
 
         <div id="education">
-
-        <h2>Education
-            &nbsp;
-            <a 
-                onClick={toggleVisibility}
-                title={isVisible ? 'Collapse' : 'Expand'}
-            >
-          <i className="fa fa-plus expandCollapseIcon" style={{visibility: (isVisible) ? 'hidden' : 'visible', display: (isVisible) ? 'none' : 'inline'}}/>
-          <i className="fa fa-minus expandCollapseIcon" style={{visibility: (isVisible) ? 'visible' : 'hidden'}}/>
-            </a>
-        </h2>
-        <div style={{display: (isVisible) ? 'block' : 'none'}}>
-            <dl>
-                <dt>Cardinal Stritch University (2006) - Madison, WI</dt>
-                <dd>Master of Business Administration </dd>
-
-                <dt>Nizhny Novgorod State Architecture Academy (1996) - Nizhny Novgorod, Russia</dt>
-                <dd>Bachelor of Science in Civil Engineering and Management</dd>
-                <dd>Graduated with honors (GPA 4.0)</dd>
-                <dd>Awarded Presidential Scholarship in recognition of academic excellence (1994, 1995, and 1996)</dd>
-            </dl>
-        </div>
-
+            <h2>Education</h2>
+            <Accordion>
+                {data}
+            </Accordion>
         </div>
 
 

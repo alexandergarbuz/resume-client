@@ -8,7 +8,9 @@ function Recommendations  (props)  {
 
     useEffect(() => {
         fetch(props.apiUrl)
-            .then(response => response.json())
+            .then(response => {
+                response.json();
+            })
             .then(data => {
                 // console.log("Loaded data:" + data);
                 const fetchedSlides = data.recommendations.map(recommendation => new Slide(
