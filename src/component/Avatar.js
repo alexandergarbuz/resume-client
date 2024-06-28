@@ -15,7 +15,7 @@ function Avatar(props) {
             <div>
                 <a id={'avatarHeaderLink' + id} href={link} target="_blank"><strong>{header1}</strong></a><br/>
                 <i>{header2}</i><br/>
-                {header3}
+                <p>{header3}</p>
             </div>
         </div>
     );

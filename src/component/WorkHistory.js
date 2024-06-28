@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
+import Spinner from 'react-bootstrap/Spinner';
 
 function parseDate(datToParse) {
-    return (datToParse.getMonth() + 1) + '/' + datToParse.getFullYear();
+    return (datToParse.getMonth() + 2) + '/' + datToParse.getFullYear();
 }
 
 function WorkHistory(props) {
@@ -22,7 +23,7 @@ function WorkHistory(props) {
                 const startDate = new Date(job.start);
                 const endDate = new Date(job.end);
                 const formattedStartDate = parseDate(startDate);
-                const formattedEndDate = parseDate(endDate);;
+                const formattedEndDate = parseDate(endDate);
 
                     return (
                         <Accordion.Item eventKey={job.id.toString()} key={job.id}>
@@ -50,8 +51,9 @@ function WorkHistory(props) {
         return (
             <div id="workHistory">
                 <h2>Work History</h2>
-                <p>Loading data....</p>
-                <hr />
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
             </div>
         );
     }
