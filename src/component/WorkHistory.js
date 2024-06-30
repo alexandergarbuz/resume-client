@@ -61,7 +61,7 @@ function WorkHistory(props) {
     return (
         <div id="workHistory">
             <h2>Work History</h2>
-            <Accordion>
+            <Accordion flush>
                 {data}
             </Accordion>
         </div>
