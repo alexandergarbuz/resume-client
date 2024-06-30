@@ -37,7 +37,7 @@ function SkillList (props) {
     };
 
     return (
-        <div id="skillList" className='w3-content'>
+        <div id="skillList">
             <h2>Technical Skills</h2>
             <dl>
             {renderSkills()}

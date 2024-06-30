@@ -12,7 +12,6 @@ function Education (props) {
     const[isLoading, setLoading] = useState(true);
     const[error, setError] = useState(null);
 
-
     useEffect(() => {
         fetch(props.apiUrl)
             .then(response => {
@@ -71,7 +70,7 @@ function Education (props) {
 
         <div id="education">
             <h2>Education</h2>
-            <Accordion>
+            <Accordion  flush>
                 {data}
             </Accordion>
         </div>
