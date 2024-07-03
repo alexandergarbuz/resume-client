@@ -29,14 +29,12 @@ function Endorsements(props) {
     const [data, setData] = useState(new Data(null, null, false));
     const [isLoading, setLoading] = useState(true);
 
-    useEffect(() => {
-        async function fetchData() {
-            const result = await loadData(props.apiUrl);
-            //console.log("Fetched data:", result.data.recommendations); 
-            setData(result.data.recommendations);
-            setLoading(false);
-        }
-        fetchData();
+    useEffect(async () =>  {
+        const result = await loadData(props.apiUrl);
+        //console.log("Fetched data:", result.data.recommendations); 
+        setData(result.data.recommendations);
+        setLoading(false);
+
     }, [props.apiUrl]);
 
     if (isLoading) {

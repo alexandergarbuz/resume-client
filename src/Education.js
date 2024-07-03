@@ -13,7 +13,7 @@ function Education (props) {
     const[error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(props.apiUrl)
+            fetch(props.apiUrl)
             .then(response => {
                 if(! response.ok) {
                     throw new Error("Cannot load data");
@@ -22,28 +22,28 @@ function Education (props) {
             })
             .then(data => {
                 const loadedSchools = data.educations.map(school => {
-                const startDate = new Date(school.startDate);
-                const endDate = new Date(school.endDate);
-                const formattedStartDate = parseDate(startDate);
-                const formattedEndDate = parseDate(endDate);
-                return (
-                    <Accordion.Item eventKey={school.id.toString()} key={school.id}>
-                        <Accordion.Header>{school.name} ({formattedStartDate} - {formattedEndDate})</Accordion.Header>
-                        <Accordion.Body>
-                            <p><strong>{school.degree}</strong></p>
-                            <p>{school.comments}</p>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                );
+                    const startDate = new Date(school.startDate);
+                    const endDate = new Date(school.endDate);
+                    const formattedStartDate = parseDate(startDate);
+                    const formattedEndDate = parseDate(endDate);
+                    return (
+                        <Accordion.Item eventKey={school.id.toString()} key={school.id}>
+                            <Accordion.Header>{school.name} ({formattedStartDate} - {formattedEndDate})</Accordion.Header>
+                            <Accordion.Body>
+                                <p><strong>{school.degree}</strong></p>
+                                <p>{school.comments}</p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    );
+                });
+                setData(loadedSchools);
+                setLoading(false);
+            })
+            .catch(error =>{
+                console.log('Error fetching data:', error);
+                setLoading(false);
+                setError(error);
             });
-            setData(loadedSchools);
-            setLoading(false);
-        })
-        .catch(error =>{
-            console.log('Error fetching data:', error);
-            setLoading(false);
-            setError(error);
-        });
 
     }, [props.apiUrl]
     )
