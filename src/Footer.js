@@ -52,7 +52,7 @@ function Footer (props) {
             <hr />
             <Accordion  flush>
             <Accordion.Item eventKey={data.id.toString()} key={data.id}>
-                        <Accordion.Header><i className='fa fa-code' />  View Source Data</Accordion.Header>
+                        <Accordion.Header><i className='fa fa-code' />  View JSON Source Data</Accordion.Header>
                         <Accordion.Body>
                         {data ? (
                             <pre>{JSON.stringify(data, null, 2)}</pre>
